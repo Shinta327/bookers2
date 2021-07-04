@@ -11,7 +11,33 @@
           <th>introduction</th>
           <th><%= user.introduction %></th>
         </tr>
+        <tr>
+          <th>following</th>
+          <th>
+            <%= link_to following_user_path(user) do %>
+            <%= user.following.count %>
+            <% end %>
+          </th>
+        </tr>
+        <tr>
+          <th>followers</th>
+          <th>
+            <%= link_to followers_user_path(user) do %>
+            <%= user.followers.count %>
+            <% end %>
+          </th>
+        </tr>
       </table>
+
+      <% unless current_user.id == user.id %>
+      <div>
+        <% if current_user.following?(user) %>
+          <%= link_to "フォロー解除", user_relationship_path(user_id: user.id), method: :delete, class: "btn btn-md btn-danger" %>
+        <% else %>
+          <%= link_to "フォローする", user_relationships_path(user_id: user.id), method: :post, class: "btn btn-md btn-success" %>
+        <% end %>
+      </div>
+      <% end %>
 
       <div class="row">
         <% if current_user.id == user.id %>
