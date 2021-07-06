@@ -15,4 +15,6 @@ Rails.application.routes.draw do
     end
   end
 
+  get '/search' => 'searchs#search', as: 'search'
+
 end
